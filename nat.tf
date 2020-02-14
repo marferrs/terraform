@@ -1,18 +1,18 @@
-resource "aws_eip" "gw" {
-  count = var.az_count
+resource "aws_eip" "eip-sb-production" {
   vpc   = true
 
   tags = {
-    Environment = "iaasweek"
+    Name = "eip-sb-production"
   }
 }
 
-resource "aws_nat_gateway" "gw" {
-  count         = var.az_count
-  subnet_id     = element(aws_subnet.public.*.id, count.index)
-  allocation_id = element(aws_eip.gw.*.id, count.index)
+resource "aws_nat_gateway" "nat-sb-production" {
+  subnet_id     = aws_subnet.sb-prod-1a-public.id
+  allocation_id = aws_eip.eip-sb-production.id
 
   tags = {
-    Environment = "iaasweek"
+    Name = "nat-sb-production"
   }
 }
+
+

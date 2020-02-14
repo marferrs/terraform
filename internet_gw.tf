@@ -1,7 +1,15 @@
-resource "aws_internet_gateway" "gw" {
-  vpc_id = aws_vpc.main.id
+resource "aws_internet_gateway" "ig-sb-production" {
+  vpc_id = aws_vpc.socialbank-production.id
 
   tags = {
-    Name = "iaasweek"
+    Name = "ig-sb-production"
+  }
+}
+
+resource "aws_internet_gateway" "ig-sb-institutional" {
+  vpc_id = aws_vpc.sb-institutional.id
+
+  tags = {
+    Name = "ig-sb-institutional"
   }
 }
